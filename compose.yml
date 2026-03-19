@@ -1,0 +1,20 @@
+services:
+  rpi-monitor:
+    image: ikaritw/rpi-monitor:latest
+    container_name: rpi-monitor
+    ports:
+      - "8888:8888"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /opt/vc:/opt/vc
+      - /boot:/boot
+      - /sys:/dockerhost/sys:ro
+      - /etc:/dockerhost/etc:ro
+      - /proc:/dockerhost/proc:ro
+      - /usr/lib:/dockerhost/usr/lib:ro
+      - /stat:/var/lib/rpimonitor/stat:rw
+      - /lib/modules:/dockerhost/lib/modules:ro
+    devices:
+      - "/dev/vchiq:/dev/vchiq"
+      - "/dev/vcio:/dev/vcio"
+    restart: unless-stopped
